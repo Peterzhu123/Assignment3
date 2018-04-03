@@ -1,0 +1,62 @@
+package assignment3;
+
+import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+
+class Painting extends Frame{
+	private int num = 0;
+	public int target = 0;
+	
+	Painting(){
+		super("Window");
+		setSize(num,num);
+		setVisible(true);
+		
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("Enter the size of the Window");
+		num = myScanner.nextInt();
+		Scanner Target = new Scanner(System.in);
+		System.out.println("Enter the size of the Target");
+		target = Target.nextInt();
+	
+		repaint();	
+	}
+	
+	public void paint(Graphics g) {
+		g.drawRect(90,90,90,90);		
+	}	
+}
+
+
+public class RandomWalk {
+	public static void main(String[] args) {
+		new Painting();
+	 int x = 0;
+	 int y = 0; 
+	 int steps = 0;					
+		 
+		 Random ran = new Random();
+		 do {
+		     int next = ran.nextInt(4)+1;
+		     System.out.print(next);
+		     if(next ==1) {
+		    	 x++ ;
+		     }
+		     else if(next ==2) {
+		    	 x-- ;
+		     }
+		     else if(next ==3) {
+		    	 y++ ;
+		     }
+		     else if(next ==4) {
+		    	 y-- ;
+		     }
+		     steps++;
+		 
+		 } while(x !=0 || y !=0);
+	System.out.print(x);
+	System.out.print(y);
+	
+	  }	
+}
