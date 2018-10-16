@@ -1,62 +1,73 @@
-package assignment3;
+// Created by Peter
+// Created on May
+// This is a program about random walk
 
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JFrame;
+import java.awt.Graphics;
+import java.util.Random;
+import java.util.Scanner;
+import java.awt.Color;
 
-class Painting extends Frame{
-	private int num = 0;
-	public int target = 0;
-	
-	Painting(){
-		super("Window");
-		setSize(num,num);
-		setVisible(true);
-		
-		Scanner myScanner = new Scanner(System.in);
-		System.out.println("Enter the size of the Window");
-		num = myScanner.nextInt();
-		Scanner Target = new Scanner(System.in);
-		System.out.println("Enter the size of the Target");
-		target = Target.nextInt();
-	
-		repaint();	
-	}
-	
-	public void paint(Graphics g) {
-		g.drawRect(90,90,90,90);		
-	}	
-}
+ public class RandomWalk extends JFrame{
 
+	 int xPosition = 250;
+	 int yPosition = 250;
+	 
+	 public RandomWalk() {
+         super("Random Walk");
+         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+         setSize(500,500);
+         setVisible(true);
+       }
 
-public class RandomWalk {
-	public static void main(String[] args) {
-		new Painting();
-	 int x = 0;
-	 int y = 0; 
-	 int steps = 0;					
-		 
-		 Random ran = new Random();
-		 do {
-		     int next = ran.nextInt(4)+1;
-		     System.out.print(next);
-		     if(next ==1) {
-		    	 x++ ;
-		     }
-		     else if(next ==2) {
-		    	 x-- ;
-		     }
-		     else if(next ==3) {
-		    	 y++ ;
-		     }
-		     else if(next ==4) {
-		    	 y-- ;
-		     }
-		     steps++;
-		 
-		 } while(x !=0 || y !=0);
-	System.out.print(x);
-	System.out.print(y);
-	
-	  }	
+     public void paint(Graphics square){
+    	 System.out.print("Enter the size of target:  ");
+    	 Scanner input = new Scanner(System.in);
+    	 int target = input.nextInt();
+    	 
+    	 if (target > 500) {
+    		 System.out.print("please input some numbers that is smaller then 500");
+    	 }
+     super.paint(square);
+          Random rand = new Random();
+          int targettposition = rand.nextInt(500);
+          
+          //square.drawRect(target,target,target,target);
+          square.setColor(Color.RED);
+          square.fillRect(targettposition,targettposition,target,target);
+      
+	      square.setColor(Color.BLACK);    
+	      do {
+	 	 
+	          Random ran = new Random();
+	          int next = ran.nextInt(4)+1;
+	          if(next == 1) {
+		    	  xPosition +=1;
+		      }
+		      else if(next == 2) {
+		    	  xPosition -= 1 ;
+		      }
+		      else if(next == 3) {
+		    	 yPosition += 1 ;
+		      }
+		      else if(next == 4) {
+		    	 yPosition -= 1 ;
+		      }
+	          
+	          if(xPosition < 0 || xPosition > 500) {
+	        	  xPosition = -xPosition;
+	          }
+	          
+	          if(yPosition < 0 || yPosition > 500) {
+	        	  yPosition = -yPosition;
+	          }
+          
+	          square.drawRect(xPosition, yPosition,1,1);
+	      }while(xPosition > targettposition+target || xPosition < targettposition-target || (yPosition > targettposition+target || yPosition < targettposition-target));    
+          
+    }
+     
+    public static void main(String[]args) {
+	    RandomWalk rect = new RandomWalk();
+    }
 }
